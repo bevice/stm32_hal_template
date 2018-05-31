@@ -1,3 +1,3 @@
-[submodule "arm-none-eabi-startup"]
-	path = arm-none-eabi-startup
-	url = git@github.com:emb-lib/arm-none-eabi-startup.git
+[submodule "stm32-ld-scripts"]
+	path = stm32-ld-scripts
+	url = git@github.com:antongus/stm32-ld-scripts.git

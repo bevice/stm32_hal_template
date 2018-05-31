@@ -32,7 +32,10 @@ SET(STM32_RAM_ORIGIN "0x20000000")
 
 # Стартовый файл
 # Тут нужно подставить свой чип 
-SET(STARTUP_SOURCE ${STM32_STARTUP_F103X6})
+SET(STARTUP_SOURCE
+		${STM32_STARTUP_F103X6}
+#		${STM32_STARTUP_F10X_MD}
+		)
 ADD_DEFINITIONS(-DSTM32F103x6)
 
 # Какие модули собирать
@@ -99,12 +102,10 @@ SET(MOD_SOURCES
 # Исходники проекта 
 ##################################################################################
 file(GLOB_RECURSE SRC_C_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
-file(GLOB_RECURSE SRC_CXX_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 file(GLOB_RECURSE SRC_HEADERS ${PROJECT_SOURCE_DIR}/src/*.h)
 
 SET(PROJECT_SOURCES
   ${SRC_C_FILES}
-  ${SRC_CXX_FILES}
   ${SRC_HEADERS}
 )
 
@@ -116,10 +117,12 @@ SET(SERVICE_SOURCES
 # Флаги компилятора для разных типов сборки.
 SET(COMPILE_DEFINITIONS_DEBUG -O0 -g3 -DDEBUG)
 SET(COMPILE_DEFINITIONS_RELEASE -Os)
+SET(LD_SCRIPT STM32F10X_MD.ld)
+SET(LD_SCRIPTS_DIR ${PROJECT_SOURCE_DIR}/stm32-ld-scripts/ )
 
 # Конфигурируем файл - скрипт компилятора: заменяем переменные в файле на размеры и адреса
-CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/stm32_flash.ld.in ${CMAKE_CURRENT_BINARY_DIR}/stm32_flash.ld)
-SET(CMAKE_EXE_LINKER_FLAGS "-T${CMAKE_CURRENT_BINARY_DIR}/stm32_flash.ld ${CMAKE_EXE_LINKER_FLAGS}")
+#CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/stm32_flash.ld.in ${CMAKE_CURRENT_BINARY_DIR}/stm32_flash.ld)
+SET(CMAKE_EXE_LINKER_FLAGS "-L${LD_SCRIPTS_DIR} -T${LD_SCRIPT} ${CMAKE_EXE_LINKER_FLAGS}")
 
 # Добавляем пути поиска заголовочных файлов
 INCLUDE_DIRECTORIES(

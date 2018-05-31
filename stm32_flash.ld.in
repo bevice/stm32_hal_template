@@ -247,7 +247,7 @@ SECTIONS
     .bss (NOLOAD) :
     {
 	    . = ALIGN(4);
-        __bss_start__ = .;     	/* standard newlib definition */
+        __bss_start = .;     	/* standard newlib definition */
         _sbss = .;              /* STM specific definition */
         *(.bss_begin .bss_begin.*)
 
@@ -256,7 +256,7 @@ SECTIONS
 
         *(.bss_end .bss_end.*)
 	    . = ALIGN(4);
-        __bss_end__ = .;        /* standard newlib definition */
+        __bss_end = .;        /* standard newlib definition */
         _ebss = . ;             /* STM specific definition */
     } >RAM
 
@@ -342,3 +342,9 @@ SECTIONS
     .debug_typenames 0 : { *(.debug_typenames) }
     .debug_varnames  0 : { *(.debug_varnames) }
 }
+PROVIDE (__top_of_stack = _estack);
+PROVIDE (__idata_start = _sidata);         /* start of initializers */
+PROVIDE (__data_start = _sdata);           /* start of initialized data section */
+PROVIDE (__data_end = _edata);             /* end of initialized data section */
+PROVIDE (__bss_start = _sbss);             /* start of zero-filled data section */
+PROVIDE (__bss_end = _ebss);               /* end of zero-filled data section */

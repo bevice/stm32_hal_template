@@ -14,7 +14,6 @@ SET(DRV_INCLUDE_DIRS
 
 # Стартовые файлы - в них происходит низкоуровневая (начальная) инициализация чипа
 SET(STM32_STARTUP_F103X6 ${CMSIS_DIR}/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xb.s)
-
 # Исходники CMSIS
 SET(STM32_SYSTEM_SOURCE ${CMSIS_DIR}/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c)
 
