@@ -1,0 +1,139 @@
+
+# SET(SEMIHOSTING "enable")
+
+# Частота  HSE
+# SET(HSE_VALUE 16000000)
+
+
+
+# Нужен cmake >=2.6
+CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
+
+
+
+include(stm32.cmake)
+
+PROJECT(stm32_hal_template)
+
+include(hal.cmake)
+
+
+# Размера флеша
+SET(STM32_FLASH_SIZE "64K")
+# Размер рамы
+SET(STM32_RAM_SIZE "20K")
+# Адрес стека - конец оперативки => 0x20000000 + размер оперативки
+SET(STM32_STACK_ADDRESS "0x20010000")
+
+# Адреса RAM и Flash
+SET(STM32_FLASH_ORIGIN "0x08000000")
+SET(STM32_RAM_ORIGIN "0x20000000")
+
+
+# Стартовый файл
+# Тут нужно подставить свой чип 
+SET(STARTUP_SOURCE ${STM32_STARTUP_F103X6})
+ADD_DEFINITIONS(-DSTM32F103x6)
+
+# Какие модули собирать
+SET(MOD_SOURCES
+	${STM32_HAL_SOURCE}
+	${STM32_HAL_CORTEX_SOURCE}	
+	${STM32_HAL_RCC_SOURCE}
+	${STM32_HAL_GPIO_SOURCE}
+	${STM32_HAL_GPIO_EX_SOURCE}
+	${STM32_HAL_FLASH_SOURCE}
+	${STM32_HAL_FLASH_EX_SOURCE}
+	${STM32_HAL_PWR_SOURCE}
+
+
+
+
+# ${STM32_HAL_ADC_SOURCE}
+# ${STM32_HAL_ADC_EX_SOURCE}
+# ${STM32_HAL_CAN_SOURCE}
+# ${STM32_HAL_CEC_SOURCE}
+
+# ${STM32_HAL_CRC_SOURCE}
+# ${STM32_HAL_DAC_SOURCE}
+# ${STM32_HAL_DAC_EX_SOURCE}
+# ${STM32_HAL_DMA_SOURCE}
+# ${STM32_HAL_ETH_SOURCE}
+
+# ${STM32_HAL_HCD_SOURCE}
+# ${STM32_HAL_I2C_SOURCE}
+# ${STM32_HAL_I2S_SOURCE}
+# ${STM32_HAL_IRDA_SOURCE}
+# ${STM32_HAL_IWDG_SOURCE}
+# ${STM32_HAL_MSP_TEMPLATE_SOURCE}
+# ${STM32_HAL_NAND_SOURCE}
+# ${STM32_HAL_NOR_SOURCE}
+# ${STM32_HAL_PCCARD_SOURCE}
+# ${STM32_HAL_PCD_SOURCE}
+# ${STM32_HAL_PCD_EX_SOURCE}
+
+
+# ${STM32_HAL_RCC_EX_SOURCE}
+# ${STM32_HAL_SD_SOURCE}
+# ${STM32_HAL_SMARTCARD_SOURCE}
+# ${STM32_HAL_SPI_SOURCE}
+# ${STM32_HAL_SPI_EX_SOURCE}
+# ${STM32_HAL_SRAM_SOURCE}
+# ${STM32_HAL_TIM_SOURCE}
+# ${STM32_HAL_TIM_EX_SOURCE}
+# ${STM32_HAL_UART_SOURCE}
+# ${STM32_HAL_USART_SOURCE}
+# ${STM32_HAL_WWDG_SOURCE}
+
+# ${STM32_LL_FSMC_SOURCE}
+# ${STM32_LL_SDMMC_SOURCE}
+# ${STM32_LL_USB_SOURCE}
+)
+
+
+
+
+
+##################################################################################
+# add all sources and headers from ./src
+# Исходники проекта 
+##################################################################################
+file(GLOB_RECURSE SRC_C_FILES ${PROJECT_SOURCE_DIR}/src/*.c)
+file(GLOB_RECURSE SRC_CXX_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE SRC_HEADERS ${PROJECT_SOURCE_DIR}/src/*.h)
+
+SET(PROJECT_SOURCES
+  ${SRC_C_FILES}
+  ${SRC_CXX_FILES}
+  ${SRC_HEADERS}
+)
+
+# Исходники стандартых обработчиков прерываний и CMSIS
+SET(SERVICE_SOURCES
+  ${STM32_SYSTEM_SOURCE}
+)
+
+# Флаги компилятора для разных типов сборки.
+SET(COMPILE_DEFINITIONS_DEBUG -O0 -g3 -DDEBUG)
+SET(COMPILE_DEFINITIONS_RELEASE -Os)
+
+# Конфигурируем файл - скрипт компилятора: заменяем переменные в файле на размеры и адреса
+CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/stm32_flash.ld.in ${CMAKE_CURRENT_BINARY_DIR}/stm32_flash.ld)
+SET(CMAKE_EXE_LINKER_FLAGS "-T${CMAKE_CURRENT_BINARY_DIR}/stm32_flash.ld ${CMAKE_EXE_LINKER_FLAGS}")
+
+# Добавляем пути поиска заголовочных файлов
+INCLUDE_DIRECTORIES(
+	${PROJECT_SOURCE_DIR}/src/
+    ${CMAKE_CURRENT_SOURCE_DIR}/.
+	${DRV_INCLUDE_DIRS}	
+)
+
+# Собираем исходники пректа, модули, и т.д. в elf
+ADD_EXECUTABLE(${CMAKE_PROJECT_NAME}.elf ${PROJECT_SOURCES} ${MOD_SOURCES} ${STARTUP_SOURCE} ${SERVICE_SOURCES})
+
+# Конвертируем elf в hex и bin
+
+ADD_CUSTOM_COMMAND(TARGET ${CMAKE_PROJECT_NAME}.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY} ARGS -Oihex ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.hex)
+ADD_CUSTOM_COMMAND(TARGET ${CMAKE_PROJECT_NAME}.elf POST_BUILD COMMAND ${CMAKE_OBJCOPY} ARGS -Obinary ${CMAKE_PROJECT_NAME}.elf ${CMAKE_PROJECT_NAME}.bin)
+ADD_CUSTOM_COMMAND(TARGET ${CMAKE_PROJECT_NAME}.elf POST_BUILD COMMAND ${CMAKE_SIZE} ARGS --format=sysv ${CMAKE_PROJECT_NAME}.elf )
+ADD_CUSTOM_COMMAND(TARGET ${CMAKE_PROJECT_NAME}.elf POST_BUILD COMMAND ${CMAKE_SIZE} ARGS --format=berkeley ${CMAKE_PROJECT_NAME}.elf )
