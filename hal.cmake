@@ -1,19 +1,26 @@
 set(HAL_DIR ${PROJECT_SOURCE_DIR}/drivers/STM32F1xx_HAL_Driver)
 set(CMSIS_DIR ${PROJECT_SOURCE_DIR}/drivers/CMSIS)
+set(BASELIBC_DIR ${PROJECT_SOURCE_DIR}/Baselibc)
+set(STARTUP_DIR ${PROJECT_SOURCE_DIR}/startup)
 
 message(STATUS "PROJECT_SOURCE_DIR : ${PROJECT_SOURCE_DIR}")
 message(STATUS "HAL_DIR : ${HAL_DIR}")
 message(STATUS "CMSIS_DIR : ${CMSIS_DIR}")
+message(STATUS "BASELIBC_DIR : ${BASELIBC_DIR}")
 # Пути, где лежат заголовки
 SET(DRV_INCLUDE_DIRS
     ${HAL_DIR}/inc/
     ${CMSIS_DIR}/Device/ST/STM32F1xx/Include/
     ${CMSIS_DIR}/Include/
-    
+    ${BASELIBC_DIR}/include/
+    ${BASELIBC_DIR}/src/templates
 )
 
+file(GLOB BASELIBC_FILES ${BASELIBC_DIR}/src/*.c)
+
 # Стартовые файлы - в них происходит низкоуровневая (начальная) инициализация чипа
-SET(STM32_STARTUP_F103X6 ${CMSIS_DIR}/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xb.s)
+#SET(STM32_STARTUP_F103X6 ${CMSIS_DIR}/Device/ST/STM32F1xx/Source/Templates/gcc/startup_stm32f103xb.s)
+SET(STM32_STARTUP ${STARTUP_DIR}/startup.c)
 # Исходники CMSIS
 SET(STM32_SYSTEM_SOURCE ${CMSIS_DIR}/Device/ST/STM32F1xx/Source/Templates/system_stm32f1xx.c)
 
