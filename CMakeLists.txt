@@ -31,9 +31,9 @@ SET(STM32_RAM_ORIGIN "0x20000000")
 
 
 # Стартовый файл
-# Тут нужно подставить свой чип 
 SET(STARTUP_SOURCE
-		${STM32_STARTUP_F103X6}
+		${STM32_STARTUP}
+		${STARTUP_DIR}/stm32/STM32F10X_MD/vectable.c
 #		${STM32_STARTUP_F10X_MD}
 		)
 ADD_DEFINITIONS(-DSTM32F103x6)
@@ -112,6 +112,7 @@ SET(PROJECT_SOURCES
 # Исходники стандартых обработчиков прерываний и CMSIS
 SET(SERVICE_SOURCES
   ${STM32_SYSTEM_SOURCE}
+		${BASELIBC_FILES}
 )
 
 # Флаги компилятора для разных типов сборки.
