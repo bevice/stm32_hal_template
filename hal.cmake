@@ -550,3 +550,191 @@ if(HAL_GPIO_MODULE_ENABLED)
     add_definitions(-DHAL_GPIO_MODULE_ENABLED)
     message(STATUS "Using HAL GPIO")
 endif()
+
+
+
+if(LL_FSMC_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_FSMC_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_FSMC_FNAME}.h
+            )
+    message(STATUS "Using LL_FSMC")
+endif()
+
+
+if(LL_SDMMC_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_SDMMC_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_SDMMC_FNAME}.h
+            )
+    message(STATUS "Using LL_SDMMC")
+endif()
+
+
+if(LL_USB_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_USB_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_USB_FNAME}.h
+            )
+    message(STATUS "Using LL_USB")
+endif()
+
+
+if(LL_ADC_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_ADC_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_ADC_FNAME}.h
+            )
+    message(STATUS "Using LL_ADC")
+endif()
+
+
+if(LL_CRC_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_CRC_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_CRC_FNAME}.h
+            )
+    message(STATUS "Using LL_CRC")
+endif()
+
+
+if(LL_DAC_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_DAC_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_DAC_FNAME}.h
+            )
+    message(STATUS "Using LL_DAC")
+endif()
+
+
+if(LL_DMA_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_DMA_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_DMA_FNAME}.h
+            )
+    message(STATUS "Using LL_DMA")
+endif()
+
+
+if(LL_EXTI_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_EXTI_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_EXTI_FNAME}.h
+            )
+    message(STATUS "Using LL_EXTI")
+endif()
+
+
+if(LL_GPIO_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_GPIO_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_GPIO_FNAME}.h
+            )
+    message(STATUS "Using LL_GPIO")
+endif()
+
+
+if(LL_I2C_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_I2C_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_I2C_FNAME}.h
+            )
+    message(STATUS "Using LL_I2C")
+endif()
+
+
+if(LL_PWR_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_PWR_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_PWR_FNAME}.h
+            )
+    message(STATUS "Using LL_PWR")
+endif()
+
+
+if(LL_RCC_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_RCC_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_RCC_FNAME}.h
+            )
+    message(STATUS "Using LL_RCC")
+endif()
+
+
+if(LL_RTC_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_RTC_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_RTC_FNAME}.h
+            )
+    message(STATUS "Using LL_RTC")
+endif()
+
+
+if(LL_SPI_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_SPI_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_SPI_FNAME}.h
+            )
+    message(STATUS "Using LL_SPI")
+endif()
+
+
+if(LL_TIM_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_TIM_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_TIM_FNAME}.h
+            )
+    message(STATUS "Using LL_TIM")
+endif()
+
+
+if(LL_USART_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_USART_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_USART_FNAME}.h
+            )
+    message(STATUS "Using LL_USART")
+endif()
+
+
+if(LL_UTILS_ENABLED)
+
+    SET(HAL_SOURCES
+            ${HAL_SOURCES}
+            ${HAL_DIR}/Src/${STM32_LL_UTILS_FNAME}.c
+            ${HAL_DIR}/Inc/${STM32_LL_UTILS_FNAME}.h
+            )
+    message(STATUS "Using LL_UTILS")
+endif()
