@@ -5,6 +5,29 @@
 
 * ARM_TOOLCHAIN_PATH - путь к установленному тулчейну 
 
+
+## Использование
+
+    git clone git@github.com:bevice/stm32_hal_template.git new_project
+    cd new_project 
+    git submodule init
+    git submodule update
+    git remote remove origin
+    
+    
+Или скриптом:
+    
+    #!/bin/bash
+    git clone git@github.com:bevice/stm32_hal_template.git $1
+    cd $1
+    git remote remove origin
+    sed -i '' -e   "s/stm32_hal_template/$1/g" CMakeLists.txt
+    git submodule init
+    git submodule update
+    
+
+
+
 ## Flashing
 
 ### st-link tools
