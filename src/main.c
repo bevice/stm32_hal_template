@@ -85,7 +85,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   GPIO_InitTypeDef g;
   g.Mode = GPIO_MODE_OUTPUT_PP;
-  g.Speed = GPIO_SPEED_LOW;
+  g.Speed = GPIO_SPEED_FREQ_LOW;
   g.Pin = GPIO_PIN_13;
   HAL_GPIO_Init(GPIOC, &g);
   while (1)
