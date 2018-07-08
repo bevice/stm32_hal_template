@@ -1,8 +1,7 @@
-//
-// Created by bevice on 14.06.16.
-//
+#ifndef _MAIN_H
+#define _MAIN_H
 
-#ifndef STM32TEMPLATE_MAIN_H
-#define STM32TEMPLATE_MAIN_H
 
-#endif //STM32TEMPLATE_MAIN_H
+void Error_Handler(void);
+void SystemClock_Config(void);
+#endif //_MAIN_H
