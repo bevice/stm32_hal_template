@@ -9,7 +9,7 @@ message(STATUS "CMSIS_DIR : ${CMSIS_DIR}")
 message(STATUS "BASELIBC_DIR : ${BASELIBC_DIR}")
 # Пути, где лежат заголовки
 SET(DRV_INCLUDE_DIRS
-    ${HAL_DIR}/inc/
+    ${HAL_DIR}/Inc/
     ${CMSIS_DIR}/Device/ST/STM32F1xx/Include/
     ${CMSIS_DIR}/Include/
 )
