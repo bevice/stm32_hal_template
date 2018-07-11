@@ -4,3 +4,6 @@
 [submodule "startup"]
 	path = startup
 	url = https://github.com/emb-lib/arm-none-eabi-startup.git
+[submodule "Baselibc"]
+	path = Baselibc
+	url = https://github.com/legath/mynewt-libconly.git
