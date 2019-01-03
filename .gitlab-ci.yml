@@ -1,0 +1,38 @@
+binaries-release:
+    image: bevice/gcc-arm-none-eabi
+    tags:
+        - arm-none-eabi-gcc
+    script:
+        - BUILD_DIR=${CI_PROJECT_NAME}-$(git log -1 --format=%h)
+        - rm -rf ${BUILD_DIR}
+        - mkdir ${BUILD_DIR}
+        - cd ${BUILD_DIR}
+        - cmake -DCMAKE_BUILD_TYPE=Release ..
+        - cmake --build . -- -j 8
+        - git log -3 > changes.txt
+    artifacts:
+        name: "${CI_PROJECT_NAME}-$(git log -1 --format=%h)"
+        paths:
+            - ${CI_PROJECT_NAME}-$(git log -1 --format=%h)/*.bin
+            - ${CI_PROJECT_NAME}-$(git log -1 --format=%h)/*.hex
+            - ${CI_PROJECT_NAME}-$(git log -1 --format=%h)/changes.txt
+    
+binaries-debug:
+    image: bevice/gcc-arm-none-eabi
+    tags:
+        - arm-none-eabi-gcc
+    script:
+        - BUILD_DIR=${CI_PROJECT_NAME}-$(git log -1 --format=%h)-dbg
+        - rm -rf ${BUILD_DIR}
+        - mkdir ${BUILD_DIR}
+        - cd ${BUILD_DIR}
+        - cmake -DCMAKE_BUILD_TYPE=Debug ..
+        - cmake --build . -- -j 8
+        - git log -3 > changes.txt
+    artifacts:
+        name: "${CI_PROJECT_NAME}-$(git log -1 --format=%h)-dbg"
+        paths:
+            - ${CI_PROJECT_NAME}-$(git log -1 --format=%h)-dbg/*.hex
+            - ${CI_PROJECT_NAME}-$(git log -1 --format=%h)-dbg/*.bin
+            - ${CI_PROJECT_NAME}-$(git log -1 --format=%h)-dbg/*.elf
+            - ${CI_PROJECT_NAME}-$(git log -1 --format=%h)-dbg/changes.txt
