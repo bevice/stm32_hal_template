@@ -45,8 +45,6 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal_conf.h"
 
-
-
 /** @addtogroup STM32F1xx_HAL_Driver
   * @{
   */
@@ -55,7 +53,6 @@ extern "C" {
   * @{
   */
 
-/* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
 /** @defgroup HAL_Exported_Constants HAL Exported Constants
@@ -75,6 +72,9 @@ typedef enum
 /**
   * @}
   */
+/* Exported types ------------------------------------------------------------*/
+extern uint32_t uwTickPrio;
+extern HAL_TickFreqTypeDef uwTickFreq;
 
 /**
   * @}
