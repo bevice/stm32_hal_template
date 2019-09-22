@@ -6,11 +6,15 @@
 
 int main(void) {
 
+    __HAL_RCC_AFIO_CLK_ENABLE();
+    __HAL_AFIO_REMAP_SWJ_NOJTAG();
 
     HAL_Init();
     clock_set_pre(CLOCK_SOURCE_PLL, CLOCK_AHB_PRE_1, CLOCK_APB_PRE_1, CLOCK_APB_PRE_1);
     clock_set_systick(CLOCK_DEFAULT_SYSTICK_FQ);
     clock_start(CLOCK_SOURCE_PLL, 8000000, CLOCK_PLL_MUL_9);
+		while (clock_values.Source != CLOCK_SOURCE_PLL);
+
 
 
     __HAL_RCC_GPIOC_CLK_ENABLE();
@@ -34,23 +38,3 @@ void SysTick_Handler(void) {
 }
 
 
-
-#ifdef USE_FULL_ASSERT
-
-/**
-   * @brief Reports the name of the source file and the source line number
-   * where the assert_param error has occurred.
-   * @param file: pointer to the source file name
-   * @param line: assert_param error line source number
-   * @retval None
-   */
-void assert_failed(uint8_t* file, uint32_t line)
-{
-  /* USER CODE BEGIN 6 */
-  /* User can add his own implementation to report the file name and line number,
-    ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
-
-}
-
-#endif
