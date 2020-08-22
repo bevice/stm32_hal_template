@@ -91,10 +91,7 @@ ADD_EXECUTABLE(${CMAKE_PROJECT_NAME}.elf
         ${PROJECT_SOURCES}
         )
 
-target_link_libraries(${CMAKE_PROJECT_NAME}.elf stm32f1xx_ll)
-target_link_libraries(${CMAKE_PROJECT_NAME}.elf stm32f1xx_hal)
-target_link_libraries(${CMAKE_PROJECT_NAME}.elf arm_cortexM3l_math)
-target_link_libraries(${CMAKE_PROJECT_NAME}.elf m)
+target_link_libraries(${CMAKE_PROJECT_NAME}.elf  -Wl,--start-group  stm32f1xx_ll stm32f1xx_hal m arm_cortexM3l_math -Wl,--end-group)
 
 
 
